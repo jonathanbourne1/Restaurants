@@ -5,7 +5,7 @@ import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {Icon} from 'react-native-elements';
 //SCREENS
 //stack Top 5
-import TopRestaurants from '../screens/Top/top-restaurant-stack';
+import TopRestaurants from '../screens/top/top-restaurant-stack';
 //stack Restaurants
 import Restaurants from '../screens/restaurants/restaurants-stack';
 //stack favorites
@@ -17,7 +17,7 @@ import Search from '../screens/search/seacrh-stack';
 const Tab = createBottomTabNavigator();
 
 //function for Icons
-const screenOption = (route, color) => {
+const screenOption = (route: {name: string}, color: string) => {
   let iconName;
   switch (route.name) {
     case 'restaurants':
