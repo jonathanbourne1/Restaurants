@@ -5,15 +5,15 @@ import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {Icon} from 'react-native-elements';
 //SCREENS
 //stack Top 5
-import TopRestaurants from '../screens/Top5/top-Restaurant-stack';
+import TopRestaurants from '../screens/Top/top-restaurant-stack';
 //stack Restaurants
-import Restaurants from '../screens/Restaurants/restaurants-stack';
+import Restaurants from '../screens/restaurants/restaurants-stack';
 //stack favorites
-import Favorites from '../screens/Favorites/favorites-stack';
+import Favorites from '../screens/favorites/favorites-stack';
 //stack Account
-import Account from '../screens/Account/account-stack';
+import Account from '../screens/account/account-stack';
 // stack seacrh
-import Search from '../screens/Search/seacrh-stack';
+import Search from '../screens/search/seacrh-stack';
 const Tab = createBottomTabNavigator();
 
 //function for Icons
