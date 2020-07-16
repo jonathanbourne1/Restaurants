@@ -1,7 +1,10 @@
-import React from 'react';
-
+import React, {FC} from 'react';
+//navigation
 import Navigation from './navigation/Navigation';
-const App = () => {
+//firebase
+import {firebaseApp} from './utils/firebase/firebase';
+
+const App: FC<{}> = () => {
   return <Navigation />;
 };
 
