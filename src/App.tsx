@@ -6,7 +6,11 @@ import auth from '@react-native-firebase/auth';
 
 const App = () => {
   const user = auth().currentUser;
-  console.log(user);
+  if (!user) {
+    console.log('no hay usario logeado');
+  } else {
+    console.log(user);
+  }
 
   return <Navigation />;
 };
