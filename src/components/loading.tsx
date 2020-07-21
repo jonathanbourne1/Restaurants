@@ -8,14 +8,13 @@ interface Props {
   isVisible: boolean;
   text: string;
 }
-
 const GeneralComponent: FC<Props> = (props) => {
   const {isVisible, text} = props;
   return (
     <Overlay
       isVisible={isVisible}
-      windowBackgroundColor="rgba(0,0, 0, .5)"
       overlayBackgroundColor="transparent"
+      windowBackgroundColor="rgba(0,0, 0, .5)"
       overlayStyle={styles.overlay}>
       <View style={styles.view}>
         <ActivityIndicator size="large" color={Colors.greenCoporative} />
