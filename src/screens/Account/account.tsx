@@ -2,11 +2,12 @@ import React, {FC, useEffect, useState} from 'react';
 import auth from '@react-native-firebase/auth';
 import UserLogged from './user-logged';
 import UserGuest from './user-guest';
+
 //import loading component
 import Loading from '../../components/loading';
 
 const Account: FC<{}> = (props) => {
-  console.log('Account L9', props);
+  // console.log('Account L9', props);
   const {navigation} = props;
   const [login, setLogin] = useState(null);
 

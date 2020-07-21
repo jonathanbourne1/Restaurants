@@ -10,15 +10,22 @@ import {
 import {Divider} from 'react-native-elements';
 //color
 import Color from '../../constants/colors';
+//navigation
+import {useNavigation} from '@react-navigation/native';
 
 const CreateAccount = () => {
+  const navigation = useNavigation();
   return (
     <View style={styles.textRegister}>
       <Text>
         Aun no tienes una cuenta?{'  '}
-        <TouchableOpacity onPress={() => console.log('sign in')}>
-          <Text style={styles.btnRegister}> Sign in</Text>
-        </TouchableOpacity>
+        <Text
+          style={styles.btnRegister}
+          onPress={() => {
+            navigation.navigate('account.register');
+          }}>
+          Sign in
+        </Text>
       </Text>
     </View>
   );

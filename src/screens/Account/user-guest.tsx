@@ -11,7 +11,7 @@ import {useNavigation} from '@react-navigation/native';
 interface Props {}
 
 const UserGuest: FC<Props> = (props) => {
-  console.log('user-guest L8', props);
+  // console.log('user-guest L8', props);
   const navigation = useNavigation();
 
   return (
