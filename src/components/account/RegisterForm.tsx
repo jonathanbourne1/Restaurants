@@ -19,16 +19,17 @@ const RegisterForm: FC<{}> = () => {
   const [showPassword2, setShowPassword2] = useState(false);
   const [formData, setFormData] = useState(defaulFormValue);
   //state of  password  & email
-  const [email, setEmail] = useState('');
+  //const [email, setEmail] = useState('');
 
   const onSubmit = () => {
     console.log('formData: ', formData);
-    console.log('email: ', email);
-    console.log('validation: ', validateEmail(email));
+    // console.log('email: ', email);
+    console.log('validation: ', validateEmail(formData.email));
   };
-  const onchangeEmail = (e: {nativeEvent: {text: string}}) => {
+  /*const onchangeEmail = (e: {nativeEvent: {text: string}}) => {
     setEmail(e.nativeEvent.text);
   };
+  */
 
   const onChange = (e: {nativeEvent: {text: string}}, type: string) => {
     setFormData({...formData, [type]: e.nativeEvent.text});
@@ -41,7 +42,7 @@ const RegisterForm: FC<{}> = () => {
       <View style={styles.formView}>
         <Input
           onChange={(e) => {
-            onchangeEmail(e);
+            onChange(e, 'email');
           }}
           placeholder="e-mail"
           containerStyle={styles.containerStyle}
