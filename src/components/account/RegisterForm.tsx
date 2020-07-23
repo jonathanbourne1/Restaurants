@@ -17,23 +17,40 @@ const RegisterForm: FC<{}> = () => {
   //state of the show and hide password
   const [showPassword, setShowPassword] = useState(false);
   const [showPassword2, setShowPassword2] = useState(false);
-  const [formData, setFormData] = useState(defaulFormValue);
-  //state of  password  & email
-  //const [email, setEmail] = useState('');
+
+  //state
+  const [email, setEmail] = useState('');
+  const [password, setpassword] = useState('');
+  const [repeatPassword, setRepeatPassword] = useState('');
+  //email
+  const onchangeEmail = (e) => {
+    const emailnotrimmed: string = e.nativeEvent.text;
+    const regEx = /\s+/g;
+    const emailTrimmed: string = emailnotrimmed.replace(regEx, '');
+    setEmail(emailTrimmed);
+  };
+  const onchangePassword = (e) => {
+    setpassword(e.nativeEvent.text);
+  };
+  const onchangeRepeatPassword = (e) => {
+    setRepeatPassword(e.nativeEvent.text);
+  };
 
   const onSubmit = () => {
-    console.log('formData: ', formData);
-    // console.log('email: ', email);
-    console.log('validation: ', validateEmail(formData.email));
+    validateEmail(email);
+    console.log(validateEmail(email));
+    console.log('{', email, ',', password, ',', repeatPassword, ',', '}');
   };
+  //cortar espacio en blanco
+
   /*const onchangeEmail = (e: {nativeEvent: {text: string}}) => {
     setEmail(e.nativeEvent.text);
   };
   */
 
-  const onChange = (e: {nativeEvent: {text: string}}, type: string) => {
+  /*const onChange = (e: {nativeEvent: {text: string}}, type: string) => {
     setFormData({...formData, [type]: e.nativeEvent.text});
-  };
+  };*/
   return (
     <TouchableWithoutFeedback
       onPress={() => {
@@ -42,8 +59,9 @@ const RegisterForm: FC<{}> = () => {
       <View style={styles.formView}>
         <Input
           onChange={(e) => {
-            onChange(e, 'email');
+            onchangeEmail(e);
           }}
+          value={email}
           placeholder="e-mail"
           containerStyle={styles.containerStyle}
           rightIcon={
@@ -52,7 +70,7 @@ const RegisterForm: FC<{}> = () => {
         />
         <Input
           onChange={(e) => {
-            onChange(e, 'password');
+            onchangePassword(e);
           }}
           password={true}
           secureTextEntry={showPassword ? false : true}
@@ -72,7 +90,7 @@ const RegisterForm: FC<{}> = () => {
         />
         <Input
           onChange={(e) => {
-            onChange(e, 'repeatPassword');
+            onchangeRepeatPassword(e);
           }}
           password={true}
           secureTextEntry={showPassword2 ? false : true}
@@ -100,14 +118,6 @@ const RegisterForm: FC<{}> = () => {
     </TouchableWithoutFeedback>
   );
 };
-
-function defaulFormValue() {
-  return {
-    email: '',
-    password: '',
-    repeatPassword: '',
-  };
-}
 
 const styles = StyleSheet.create({
   formView: {
