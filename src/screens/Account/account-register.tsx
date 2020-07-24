@@ -1,11 +1,23 @@
-import React, {FC} from 'react';
+import React, {FC, useRef} from 'react';
 import {StyleSheet, ScrollView, View, Image} from 'react-native';
+//to ignore warning of useDriver
+import {YellowBox} from 'react-native';
+YellowBox.ignoreWarnings([
+  'Animated: `useNativeDriver` was not specified. This is a required option and must be explicitly set to `true` or `false`',
+]);
+// ------- END OF WARNING SUPPRESSION
+
 //register form component
 import RegisterForm from '../../components/account/RegisterForm';
-//scroll view aware
-import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
-
-const Register: FC<{}> = () => {
+//TOAST
+import Toast, {DURATION} from 'react-native-easy-toast';
+//interface
+interface Props {
+  toastRef: object;
+}
+const Register: FC<Props> = (props) => {
+  const toastRef = useRef();
+  console.log('toast ref :', toastRef);
   return (
     <ScrollView style={{backgroundColor: 'white'}}>
       <Image
@@ -15,8 +27,9 @@ const Register: FC<{}> = () => {
       />
 
       <View style={styles.viewForm}>
-        <RegisterForm />
+        <RegisterForm toastRef={toastRef} />
       </View>
+      <Toast ref={toastRef} position="center" opacity={0.8} />
     </ScrollView>
   );
 };

@@ -12,45 +12,55 @@ import {Input, Icon, Button} from 'react-native-elements';
 import Color from '../../constants/colors';
 //function validate email
 import {validateEmail} from '../../utils/validations';
-
-const RegisterForm: FC<{}> = () => {
+//loadash
+import {size, isEmpty} from 'lodash';
+//INTERFACE
+interface Props {
+  toastRef: {current: {show(messange: string)}};
+}
+const RegisterForm: FC<Props> = (props) => {
   //state of the show and hide password
+  const {toastRef} = props;
+  // showing password
   const [showPassword, setShowPassword] = useState(false);
   const [showPassword2, setShowPassword2] = useState(false);
-
   //state
   const [email, setEmail] = useState('');
   const [password, setpassword] = useState('');
   const [repeatPassword, setRepeatPassword] = useState('');
-  //email
+  //email function
   const onchangeEmail = (e) => {
     const emailnotrimmed: string = e.nativeEvent.text;
     const regEx = /\s+/g;
     const emailTrimmed: string = emailnotrimmed.replace(regEx, '');
     setEmail(emailTrimmed);
   };
+  //password
   const onchangePassword = (e) => {
     setpassword(e.nativeEvent.text);
   };
+  //repeat password
   const onchangeRepeatPassword = (e) => {
     setRepeatPassword(e.nativeEvent.text);
   };
-
+  //ONSUBMIT
   const onSubmit = () => {
-    validateEmail(email);
-    console.log(validateEmail(email));
+    if (isEmpty(email) || isEmpty(password) || isEmpty(repeatPassword)) {
+      //console.log('todos los campos son obligatorios');
+      toastRef.current.show('TODOS LOS CAMPOS SON OBLIGARORIOS', 1000);
+    } else if (!validateEmail(email)) {
+      toastRef.current.show('INGRESE UN CORREO VALIDO');
+    } else if (password !== repeatPassword) {
+      toastRef.current.show('LAS CONTRASEÑAS NO COINCIDEN');
+    } else if (size(password) < 7) {
+      toastRef.current.show('LA CONTRASEÑA TIENE QUE SER MAYOR A 7 CARACTERES');
+    } else {
+      console.log('ok');
+    }
+
     console.log('{', email, ',', password, ',', repeatPassword, ',', '}');
   };
-  //cortar espacio en blanco
 
-  /*const onchangeEmail = (e: {nativeEvent: {text: string}}) => {
-    setEmail(e.nativeEvent.text);
-  };
-  */
-
-  /*const onChange = (e: {nativeEvent: {text: string}}, type: string) => {
-    setFormData({...formData, [type]: e.nativeEvent.text});
-  };*/
   return (
     <TouchableWithoutFeedback
       onPress={() => {
