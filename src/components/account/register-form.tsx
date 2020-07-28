@@ -5,9 +5,14 @@ import {
   Keyboard,
   TouchableWithoutFeedback,
 } from 'react-native';
-
+//firebase
+import auth from '@react-native-firebase/auth';
 //react native elements
 import {Input, Icon, Button} from 'react-native-elements';
+//loading
+import Loading from '../loading';
+//navigation
+import {useNavigation} from '@react-navigation/native';
 //color
 import Color from '../../constants/colors';
 //function validate email
@@ -21,6 +26,8 @@ interface Props {
 const RegisterForm: FC<Props> = (props) => {
   //state of the show and hide password
   const {toastRef} = props;
+  //loading
+  const [showLoading, setShowLoading] = useState(false);
   // showing password
   const [showPassword, setShowPassword] = useState(false);
   const [showPassword2, setShowPassword2] = useState(false);
@@ -28,6 +35,8 @@ const RegisterForm: FC<Props> = (props) => {
   const [email, setEmail] = useState('');
   const [password, setpassword] = useState('');
   const [repeatPassword, setRepeatPassword] = useState('');
+  //useNavigation
+  const navigation = useNavigation();
   //email function
   const onchangeEmail = (e) => {
     const emailnotrimmed: string = e.nativeEvent.text;
@@ -55,7 +64,17 @@ const RegisterForm: FC<Props> = (props) => {
     } else if (size(password) < 7) {
       toastRef.current.show('LA CONTRASEÑA TIENE QUE SER MAYOR A 7 CARACTERES');
     } else {
-      console.log('ok');
+      setShowLoading(true);
+      auth()
+        .createUserWithEmailAndPassword(email, password)
+        .then((response) => {
+          setShowLoading(false);
+          navigation.navigate('account');
+        })
+        .catch((error) => {
+          toastRef.current.show(error.message, 5000);
+          setShowLoading(false);
+        });
     }
 
     console.log('{', email, ',', password, ',', repeatPassword, ',', '}');
@@ -124,6 +143,7 @@ const RegisterForm: FC<Props> = (props) => {
           containerStyle={styles.containerRegisterbtn}
           onPress={onSubmit}
         />
+        <Loading isVisible={showLoading} text="Creando cuenta" />
       </View>
     </TouchableWithoutFeedback>
   );

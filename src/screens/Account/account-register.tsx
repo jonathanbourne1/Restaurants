@@ -8,7 +8,7 @@ YellowBox.ignoreWarnings([
 // ------- END OF WARNING SUPPRESSION
 
 //register form component
-import RegisterForm from '../../components/account/RegisterForm';
+import RegisterForm from '../../components/account/register-form';
 //TOAST
 import Toast, {DURATION} from 'react-native-easy-toast';
 //interface

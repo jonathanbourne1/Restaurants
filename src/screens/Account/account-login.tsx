@@ -1,17 +1,14 @@
-import React, {FC} from 'react';
-import {
-  StyleSheet,
-  ScrollView,
-  View,
-  Text,
-  Image,
-  TouchableOpacity,
-} from 'react-native';
+import React, {FC, useRef} from 'react';
+import {StyleSheet, ScrollView, View, Text, Image} from 'react-native';
 import {Divider} from 'react-native-elements';
 //color
 import Color from '../../constants/colors';
+//toasts
+import Toast, {DURATION} from 'react-native-easy-toast';
 //navigation
 import {useNavigation} from '@react-navigation/native';
+//login Component
+import LoginComponent from '../../components/account/login';
 
 const CreateAccount = () => {
   const navigation = useNavigation();
@@ -32,6 +29,9 @@ const CreateAccount = () => {
 };
 
 const Login: FC<{}> = () => {
+  //useRef
+  const toastRef = useRef();
+
   return (
     <ScrollView style={{backgroundColor: 'white'}}>
       <Image
@@ -40,12 +40,13 @@ const Login: FC<{}> = () => {
         style={styles.logo}
       />
       <View style={styles.viewContainer}>
-        <Text>Login Form</Text>
+        <LoginComponent toastRef={toastRef} />
 
         <CreateAccount />
       </View>
       <Divider style={styles.divider} />
       <Text>social Login</Text>
+      <Toast ref={toastRef} position="center" opacity={0.8} />
     </ScrollView>
   );
 };
